@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using BackendProject.Models;
+using Backend.Models;
 
-namespace BackendProject.Data
+namespace Backend.Data
 {
     public class AppDbContext : DbContext
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserData> UserDatas { get; set; }
 
@@ -19,7 +24,7 @@ namespace BackendProject.Data
                 .Property(e => e.Date)
                 .HasConversion(
                     v => v.ToString("yyyy-MM-dd"),
-                    v => DateOnly.Parse(v));
+                    v => DateTime.Parse(v));
         }
     }
 }
