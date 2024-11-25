@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using BackendProject.Data; // Lisää tämä rivi
-using BackendProject.Models; // Lisää tämä rivi
+using Backend.Models;
+using Backend.Data;
 
-namespace BackendProject
+namespace Backend
 {
-    public class FiilismittariTietokanta
+    public class FiilismittariTietokanta : DbContext
     {
-        private readonly string _connectionString = "Data Source=backend.db"; // Päivitetty yhteysmerkkijono
+        private readonly string _connectionString = "Data Source=../Backend/backend.db";
         private readonly AppDbContext _context;
 
-        public FiilismittariTietokanta()
+        public FiilismittariTietokanta(DbContextOptions<FiilismittariTietokanta> options)
+            : base(options)
         {
-            _context = new AppDbContext();
+            _context = new AppDbContext(new DbContextOptionsBuilder<AppDbContext>()
+                .UseSqlite(_connectionString)
+                .Options);
             using var connection = new SqliteConnection(_connectionString);
             connection.Open();
             CreateTables(connection);
