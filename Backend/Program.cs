@@ -1,11 +1,15 @@
 ﻿using System;
-using BackendProject;
+using Backend;
+using Microsoft.EntityFrameworkCore;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var db = new FiilismittariTietokanta();
+        var optionsBuilder = new DbContextOptionsBuilder<FiilismittariTietokanta>();
+        optionsBuilder.UseSqlite("Data Source=fiilismittari.db");
+
+        var db = new FiilismittariTietokanta(optionsBuilder.Options);
 
         while (true)
         {
