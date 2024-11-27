@@ -17,9 +17,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="Backend.csproj" />
-  </ItemGroup>
-
-
 </Project>
